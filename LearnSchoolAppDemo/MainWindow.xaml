@@ -1,0 +1,95 @@
+﻿<Window x:Class="LearnSchoolAppDemo.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:LearnSchoolAppDemo"
+        mc:Ignorable="d"
+        Title="Школа языков “Леарн”" Height="1080" Width="1920"
+        WindowState="Maximized">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="40"/>
+            <RowDefinition/>
+            <RowDefinition Height="50"/>
+        </Grid.RowDefinitions>
+        <TextBlock Text="Список услуг:"
+                   VerticalAlignment="Center"
+                   HorizontalAlignment="Center"
+                   Grid.ColumnSpan="2"/>
+        <ListView x:Name="ServiceList"
+                  Grid.Row="1"
+                  Grid.ColumnSpan="2"
+                  HorizontalContentAlignment="Stretch" 
+                  ScrollViewer.CanContentScroll="False"
+                  d:ItemsSource="{d:SampleData ItemCount=5}">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <Border BorderBrush="Gray"
+                            BorderThickness="1"
+                            Background="{Binding BackgroundColor}">
+                        <StackPanel Orientation="Horizontal"
+                                    Margin="0 10">
+                            <Border BorderBrush="Black"
+                                    BorderThickness="1">
+                                <Image Source="{Binding NewImagePath}"
+                                       Height="170"
+                                       Width="190"
+                                       Stretch="Fill"/>
+                            </Border>
+                            <StackPanel Width="20"/>
+                            <StackPanel>
+                                <TextBlock Text="{Binding Title}"
+                                           Width="1000"
+                                           TextWrapping="Wrap"/>
+                                <StackPanel Orientation="Horizontal">
+                                    <TextBlock Text="{Binding Cost}"
+                                               TextDecorations="Strikethrough"
+                                               Visibility="{Binding PreviousCostVisibility}"/>
+                                    <TextBlock Text="{Binding CostAndDurationText}"/>
+                                </StackPanel>
+                                <TextBlock Text="{Binding DiscountText}"
+                                           Visibility="{Binding DiscountTextVisibility}"/>
+                            </StackPanel>
+                        </StackPanel>
+                    </Border>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+        <TextBlock x:Name="DataCountTb"
+                   Grid.Row="2"
+                   Grid.ColumnSpan="2"
+                   VerticalAlignment="Center"
+                   HorizontalAlignment="Center"/>
+        <StackPanel Grid.Row="1"
+                    Grid.Column="2"
+                    HorizontalAlignment="Center">
+            <TextBlock Text="Сортировка по стоимости:"/>
+            <ComboBox Name="CostSortCb"
+                      Width="350"
+                      HorizontalAlignment="Left"
+                      SelectionChanged="CostSortCb_SelectionChanged">
+                <ComboBoxItem>По возрастанию</ComboBoxItem>
+                <ComboBoxItem>По убыванию</ComboBoxItem>
+            </ComboBox>
+            <StackPanel Height="50"/>
+            <TextBlock Text="Фильтрация по размеру скидки:"/>
+            <ComboBox Name="DiscountTypeCb"
+                      Width="350"
+                      HorizontalAlignment="Left"
+                      SelectionChanged="DiscountTypeCb_SelectionChanged"/>
+            <StackPanel Height="50"/>
+            <TextBlock Text="Поиск по названию:"/>
+            <TextBox x:Name="SearchTb"
+                     Width="400"
+                     Height="80"
+                     HorizontalAlignment="Left"
+                     TextChanged="SearchTb_TextChanged"/>
+        </StackPanel>
+    </Grid>
+</Window>
